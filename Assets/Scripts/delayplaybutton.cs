@@ -9,6 +9,7 @@ public class Delay : MonoBehaviour
 
        void Start()
        {
+          Button.SetActive(true);
           Invoke("buttonDelay",10);
        }
 

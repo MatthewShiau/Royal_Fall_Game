@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
-public class PlayerController: MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     // Rigidbody of player
     private Rigidbody rb;
@@ -30,7 +31,7 @@ public class PlayerController: MonoBehaviour
         loseTextObject.SetActive(false);
     }
 
-    void OnMove (InputValue movementValue)
+    void OnMove(InputValue movementValue)
     {
         Vector2 movementVector = movementValue.Get<Vector2>();
 
@@ -50,6 +51,7 @@ public class PlayerController: MonoBehaviour
         if (col.gameObject.name == "Water")
         {
             winTextObject.SetActive(true);
+            Invoke("LoadNextScene", 3f);
         }
 
         if (col.gameObject.name == "Obstacle 1")
@@ -81,5 +83,10 @@ public class PlayerController: MonoBehaviour
             loseTextObject.SetActive(true);
             player.SetActive(false);
         }
+    }
+
+    private void LoadNextScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }
